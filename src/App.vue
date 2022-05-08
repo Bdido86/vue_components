@@ -18,7 +18,6 @@
        <component v-if="blocks.length > 0" v-for="block in blocks" :is="getComponent(block)" :="bindComponent(block)"></component>
 
        <h3 v-else>Добавьте первый блок, чтобы увидеть результат</h3>
-       <AppLoader/>
     </div>
   </div>
 
@@ -74,12 +73,14 @@ export default {
     async loadBlocks() {
       const {data} = await axios.get(dataBaseUrl)
 
-      this.blocks = Object.keys(data).map(key => {
-        return {
-          component: data[key].component,
-          value: data[key].value
-        }
-      })
+      if (data) {
+        this.blocks = Object.keys(data).map(key => {
+          return {
+            component: data[key].component,
+            value: data[key].value
+          }
+        })
+      }
     },
     async submitForm() {
       const block = {
