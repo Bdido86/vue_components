@@ -18,6 +18,7 @@
        <component v-if="blocks.length > 0" v-for="block in blocks" :is="getComponent(block)" :="bindComponent(block)"></component>
 
        <h3 v-else>Добавьте первый блок, чтобы увидеть результат</h3>
+       <AppLoader/>
     </div>
   </div>
 
@@ -25,11 +26,15 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 import AppTitle from "./components/AppTitle"
 import AppSubtitle from "./components/AppSubtitle";
 import AppAvatar from "./components/AppAvatar";
 import AppText from "./components/AppText";
 import AppComments from "./components/AppComments";
+
+const dataBaseUrl = 'https://vue-with-https-9180e-default-rtdb.europe-west1.firebasedatabase.app/block.json'
 
 export default {
   data() {
@@ -44,6 +49,9 @@ export default {
       blockValue: '',
       blocks: []
     }
+  },
+  mounted() {
+    this.loadBlocks()
   },
   computed: {
     canBlockAdd() {
@@ -63,11 +71,24 @@ export default {
     getComponent(block) {
       return 'app-' + block.component
     },
-    submitForm() {
-      this.blocks.push({
-        'component': this.blockType,
-        'value': this.blockValue
+    async loadBlocks() {
+      const {data} = await axios.get(dataBaseUrl)
+
+      this.blocks = Object.keys(data).map(key => {
+        return {
+          component: data[key].component,
+          value: data[key].value
+        }
       })
+    },
+    async submitForm() {
+      const block = {
+        component: this.blockType,
+        value: this.blockValue
+      }
+
+      await axios.post(dataBaseUrl, block)
+      this.blocks.push(block)
 
       this.resetForm()
     }
