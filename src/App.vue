@@ -42,8 +42,7 @@ export default {
       ],
       blockType: 'title',
       blockValue: '',
-      blocks: [],
-      comments: []
+      blocks: []
     }
   },
   computed: {
