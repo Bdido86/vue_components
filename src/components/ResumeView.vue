@@ -1,6 +1,8 @@
 <template>
   <div class="card card-w70">
-    <component v-if="blocks.length > 0" v-for="block in blocks" :is="getComponent(block)" :="bindComponent(block)"></component>
+    <template v-if="blocks.length > 0" >
+      <component v-for="block in blocks" :is="getComponent(block)" :="bindComponent(block)"></component>
+    </template>
 
     <h3 v-else>Добавьте первый блок, чтобы увидеть результат</h3>
   </div>
