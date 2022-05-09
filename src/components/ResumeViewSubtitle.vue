@@ -5,7 +5,10 @@
 <script>
 export default {
   props: {
-    subtitle: String
+    subtitle: {
+      type: String,
+      required: true
+    }
   }
 }
 </script>

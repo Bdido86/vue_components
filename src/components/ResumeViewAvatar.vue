@@ -7,8 +7,11 @@
 <script>
 export default {
   props: {
-    avatar: String
-  },
+    avatar: {
+      type: String,
+      required: true
+    }
+  }
 }
 </script>
 
