@@ -46,7 +46,6 @@ export default {
       }
 
       this.resetForm()
-
       this.$emit('createBlockView', block)
     }
   },
