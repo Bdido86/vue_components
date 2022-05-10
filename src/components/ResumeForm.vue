@@ -3,7 +3,7 @@
     <div class="form-control">
       <label for="type">Тип блока</label>
       <select id="type" v-model="blockType">
-        <option v-for="blockType in blockTypes" :key="blockType.key" :value=blockType.key>{{ blockType.value }}</option>
+        <option v-for="blockType in blockTypes" :key="blockType.key" :value="blockType.key">{{ blockType.value }}</option>
       </select>
     </div>
     <div class="form-control">
